@@ -322,7 +322,7 @@ function App() {
   useEffect(() => {
     const interval = setInterval(() => {
       setRoleIndex((previous) => (previous + 1) % ROLE_TITLES.length)
-    }, 3400)
+    }, 5100)
 
     return () => clearInterval(interval)
   }, [])
@@ -528,8 +528,10 @@ function App() {
                   <span className="hero-keywords">Playwright | CI/CD | Quality Engineering</span>
                 </h1>
                 <p className="hero-description">
-                  I design reliable automation systems that reduce release risk and scale with
-                  products. Building quality into every layer of the development lifecycle.
+                  I build reliable QA automation systems with Playwright, API testing, and CI/CD
+                  pipelines to reduce release risk, accelerate delivery, and ensure seamless scaling for modern
+                  product teams. I struggle to embed quality engineering across all stages of the software
+                  development lifecycle.
                 </p>
                 <div className="hero-actions">
                   <button
@@ -558,13 +560,20 @@ function App() {
                 </div>
               </div>
               <aside className="hero-portrait-shell">
-                <div className="hero-portrait-ring">
-                  <img
-                    className="hero-portrait-image"
-                    src="/hero-photo.jpeg"
-                    alt="Kateryna Vorona portrait"
-                  />
-                </div>
+                <a
+                  href="https://www.linkedin.com/in/katya-h-8011a6b6/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Open Kateryna Vorona LinkedIn profile"
+                >
+                  <div className="hero-portrait-ring">
+                    <img
+                      className="hero-portrait-image"
+                      src="/hero-photo.jpeg"
+                      alt="Kateryna Vorona portrait"
+                    />
+                  </div>
+                </a>
               </aside>
             </div>
           </div>

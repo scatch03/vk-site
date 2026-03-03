@@ -413,7 +413,7 @@ textarea {
   white-space: nowrap;
   min-height: 1.08em;
   color: var(--primary);
-  animation: role-fade 714ms ease;
+  animation: role-fade 1071ms ease;
 }
 
 .hero-caret {
