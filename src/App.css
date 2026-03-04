@@ -831,6 +831,18 @@ textarea {
   font-weight: 500;
 }
 
+.timeline-company-link {
+  color: inherit;
+  text-decoration: underline transparent;
+  text-underline-offset: 2px;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+
+.timeline-company-link:hover {
+  color: color-mix(in srgb, var(--primary) 85%, #000 15%);
+  text-decoration-color: currentColor;
+}
+
 .timeline-head span {
   color: var(--muted-foreground);
   font-size: 0.88rem;
@@ -859,6 +871,7 @@ textarea {
 .resume-side {
   display: grid;
   gap: 1rem;
+  margin-top: 0;
 }
 
 .side-card {
@@ -1206,6 +1219,10 @@ textarea {
 
   .resume-grid {
     grid-template-columns: 2fr 1fr;
+  }
+
+  .resume-side {
+    margin-top: 3.25rem;
   }
 
   .contact-grid {

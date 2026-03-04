@@ -176,36 +176,32 @@ const PROJECTS = [
 
 const EXPERIENCE = [
   {
-    title: 'Senior QA Automation Engineer',
-    company: 'Tech Solutions Inc.',
-    period: '2022 - Present',
-    description: [
-      'Architected and implemented Playwright-based automation framework reducing test execution time by 60%',
-      'Led migration from Selenium to Playwright, improving test reliability from 75% to 98%',
-      'Established CI/CD pipelines with GitHub Actions for automated testing on every PR',
-      'Mentored team of 4 QA engineers on automation best practices and framework design',
-    ],
-  },
-  {
     title: 'QA Automation Engineer',
-    company: 'Digital Products Co.',
-    period: '2020 - 2022',
+    company: 'Playson',
+    companyUrl: 'https://playson.com/',
+    period: 'Sep 2018 - Present',
     description: [
-      'Developed comprehensive test automation suite covering 500+ test scenarios',
-      'Implemented API testing framework with contract testing using Pact',
-      'Reduced production bugs by 40% through proactive quality engineering practices',
-      'Collaborated with development teams to integrate testing into Agile workflows',
+      'Led QA automation strategy for a multi-product platform, aligning risk-based software testing with release goals.',
+      'Planned, tracked, and expanded end-to-end test coverage for web and API flows to reduce production defects.',
+      'Architected and maintained core automated testing frameworks for regression, smoke, and critical-path validation.',
+      'Selected and integrated QA tools into CI/CD pipelines to improve build quality gates and release confidence.',
+      'Defined scalable test standards, reusable test architecture patterns, and quality metrics across product teams.',
+      'Reviewed team code contributions and test implementations to ensure maintainability, reliability, and consistency.',
+      'Maintained QA documentation, test strategy artifacts, and operational runbooks for faster onboarding and execution.',
+      'Developed incident response procedures for quality issues, driving faster triage, root-cause analysis, and prevention.',
     ],
   },
   {
-    title: 'Quality Assurance Engineer',
-    company: 'Startup Ventures',
-    period: '2018 - 2020',
+    title: 'QA Engineer',
+    company: 'Ers Game Studios LLP, Enixan',
+    period: 'May 2017 - Sep 2018',
     description: [
-      'Created automation framework from scratch using Selenium and TestNG',
-      'Performed manual and automated testing for web and mobile applications',
-      'Designed test strategies and test plans for new feature releases',
-      'Participated in sprint planning and retrospectives to improve quality processes',
+      'Ukraine',
+      'Testing of casual games in the genre quest;',
+      'Working with bug tracking system JIRA;',
+      'Knowledge of desktop operating systems and mobile platforms (iOS, Android);',
+      "PC Games: Spirits of Mistery; Redemption Cemetery; Edgar Allan Poe's; Puppet Show; Haunted Legends etc.",
+      'F2P: Iron Rage; Deepsea Story.',
     ],
   },
 ]
@@ -243,7 +239,11 @@ const CERTIFICATIONS = [
   },
   {
     title: 'Selenium Web Driver',
-    url: 'https://qalight.ua/kursy/automation/selenium-python/',
+    url: 'https://www.linkedin.com/in/katya-h-8011a6b6/overlay/Position/1454661564/treasury/?profileId=ACoAABiWwwEB4ZX0Iw1XvPgi9lHb4xxjetzPWzk',
+  },
+  {
+    title: 'Software Testing',
+    url: 'https://skillsup.ua/education/courses/software-testing/',
   },
 ]
 
@@ -708,7 +708,20 @@ function App() {
                       <div className="timeline-head">
                         <div>
                           <h4>{entry.title}</h4>
-                          <p>{entry.company}</p>
+                          <p>
+                            {entry.companyUrl ? (
+                              <a
+                                href={entry.companyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="timeline-company-link"
+                              >
+                                {entry.company}
+                              </a>
+                            ) : (
+                              entry.company
+                            )}
+                          </p>
                         </div>
                         <span>{entry.period}</span>
                       </div>
