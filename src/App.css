@@ -899,6 +899,18 @@ textarea {
   font-size: 0.92rem;
 }
 
+.cert-link {
+  color: inherit;
+  text-decoration: underline transparent;
+  text-underline-offset: 2px;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+
+.cert-link:hover {
+  color: var(--primary);
+  text-decoration-color: var(--primary);
+}
+
 .education-main {
   margin: 0 0 15px;
   font-weight: 600;

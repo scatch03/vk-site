@@ -211,20 +211,40 @@ const EXPERIENCE = [
 ]
 
 const CORE_SKILLS = [
-  'Playwright Expert',
-  'TypeScript',
+  'Python',
+  'Javascript',
+  'Playwright',
+  'Selenium',
   'Test Architecture',
   'CI/CD',
   'API Testing',
   'Performance Testing',
-  'Git & GitHub',
+  'Git & GitLab',
   'Agile/Scrum',
+  'SQL',
+  'CSS',
+  'HTML',
+  'Jira',
+  'Postman',
 ]
 
 const CERTIFICATIONS = [
-  'ISTQB Certified Tester',
-  'GitHub Actions Certification',
-  'AWS Cloud Practitioner',
+  {
+    title: 'Python Data Structures',
+    url: 'https://www.sololearn.com/Certificate/CT-9ZHLFIBK/png',
+  },
+  {
+    title: 'Structured Query Language',
+    url: 'https://www.sololearn.com/Certificate/CT-XJ89NXWB/jpg',
+  },
+  {
+    title: 'Python Programming Language',
+    url: 'https://www.sololearn.com/Certificate/CT-QER6GGAD/png',
+  },
+  {
+    title: 'Selenium Web Driver',
+    url: 'https://qalight.ua/kursy/automation/selenium-python/',
+  },
 ]
 
 const SOCIAL_LINKS = [
@@ -727,9 +747,16 @@ function App() {
                   </div>
                   <ul className="cert-list">
                     {CERTIFICATIONS.map((certificate) => (
-                      <li key={certificate}>
+                      <li key={certificate.title}>
                         <span className="check-symbol">✓</span>
-                        {certificate}
+                        <a
+                          href={certificate.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="cert-link"
+                        >
+                          {certificate.title}
+                        </a>
                       </li>
                     ))}
                   </ul>
