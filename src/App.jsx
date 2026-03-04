@@ -230,20 +230,20 @@ const CERTIFICATIONS = [
 const SOCIAL_LINKS = [
   {
     name: 'LinkedIn',
-    url: 'https://linkedin.com',
+    url: 'https://www.linkedin.com/in/katya-h-8011a6b6/',
     description: 'Connect on LinkedIn',
     icon: Linkedin,
   },
   {
-    name: 'GitHub',
-    url: 'https://github.com',
-    description: 'View my repositories',
-    icon: Github,
+    name: 'Telegram',
+    url: 'https://t.me/khrynchyshyna',
+    description: 'Message on Telegram',
+    icon: Send,
   },
   {
     name: 'Email',
-    url: 'mailto:qa.engineer@example.com',
-    description: 'qa.engineer@example.com',
+    url: 'https://mail.google.com/mail/?view=cm&fs=1&to=katyagrinchishina@gmail.com',
+    description: 'katyagrinchishina@gmail.com',
     icon: Mail,
   },
 ]
@@ -740,8 +740,25 @@ function App() {
                     <GraduationCap size={20} />
                     <h3>Education</h3>
                   </div>
-                  <p className="education-main">B.Tech in Computer Science</p>
-                  <p className="education-sub">University Name, 2018</p>
+                  <div className="education-row">
+                    <a
+                      href="https://vspu.edu.ua/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Open Vinnytsia State Pedagogical University website"
+                    >
+                      <img
+                        className="education-logo"
+                        src="/vspu-logo.png"
+                        alt="Vinnytsia State Pedagogical University logo"
+                      />
+                    </a>
+                    <div className="education-text">
+                      <p className="education-main">Vinnytsia State Pedagogical University</p>
+                      <p className="education-sub">MSc of Information Technology</p>
+                      <p className="education-sub">2008 – 2013</p>
+                    </div>
+                  </div>
                 </article>
               </aside>
             </div>
@@ -751,10 +768,9 @@ function App() {
         <section id="contact" className="section">
           <div className="container">
             <header className="section-header">
-              <h2 className="section-title">Let&apos;s Talk About Quality Engineering</h2>
+              <h2 className="section-title">Let&apos;s Talk Quality Engineering</h2>
               <p className="section-subtitle">
-                Interested in discussing automation strategies, test architecture, or potential
-                opportunities?
+                Interested in discussing newest automation strategies, best test architecture approaches, or exciting potential opportunities?
               </p>
             </header>
 
@@ -811,12 +827,13 @@ function App() {
                 <article className="card contact-card">
                   <h3>Get in Touch</h3>
                   <p>
-                    I&apos;m always interested in discussing new opportunities, automation challenges,
-                    or collaborating on quality engineering initiatives.
+                    I&apos;m always open to discussing new opportunities, solving automation
+                    challenges, and collaborating on quality engineering initiatives.
                   </p>
                   <p>
-                    Whether you&apos;re looking for a QA automation engineer, need consultation on
-                    test strategy, or want to discuss best practices, feel free to reach out.
+                    If you&apos;re looking for a QA automation engineer, need guidance on test
+                    strategy, or want to exchange quality engineering best practices, feel free to
+                    reach out.
                   </p>
                 </article>
 
@@ -849,8 +866,7 @@ function App() {
                     <p>Open to opportunities</p>
                   </div>
                   <p>
-                    Currently exploring roles in the 12-25 LPA range at product companies and SaaS
-                    startups
+                    Open to interesting opportunities in product companies and SaaS startups
                   </p>
                 </article>
               </div>
@@ -861,23 +877,30 @@ function App() {
 
       <footer className="site-footer">
         <div className="container footer-inner">
-          <p>
-            © {new Date().getFullYear()} QA Automation Engineer. Built with React & Playwright
-            mindset.
-          </p>
+          <p>© 2026 All rights reserved.</p>
           <div className="footer-links">
-            <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-              <Github size={20} />
+            <a
+              href="https://t.me/khrynchyshyna"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Telegram"
+            >
+              <Send size={20} />
             </a>
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/katya-h-8011a6b6/"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
             >
               <Linkedin size={20} />
             </a>
-            <a href="mailto:qa.engineer@example.com" aria-label="Email">
+            <a
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=katyagrinchishina@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Email"
+            >
               <Mail size={20} />
             </a>
           </div>
