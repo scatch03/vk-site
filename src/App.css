@@ -168,6 +168,12 @@ textarea {
   transform: translateY(-1px);
 }
 
+.nav-link--active {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--border));
+  background: color-mix(in srgb, var(--primary) 11%, var(--secondary));
+  color: var(--primary);
+}
+
 .nav-actions {
   display: flex;
   align-items: center;
@@ -242,6 +248,12 @@ textarea {
 .mobile-menu-link:hover {
   border-color: color-mix(in srgb, var(--primary) 55%, var(--border));
   transform: translateY(-1px);
+}
+
+.mobile-menu-link--active {
+  border-color: color-mix(in srgb, var(--primary) 55%, var(--border));
+  background: color-mix(in srgb, var(--primary) 11%, var(--secondary));
+  color: var(--primary);
 }
 
 .hero-section {
@@ -589,62 +601,6 @@ textarea {
   background: var(--accent);
 }
 
-.projects-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-.project-card {
-  padding: 2rem;
-  transition: border-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
-}
-
-.project-card:hover {
-  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
-  box-shadow: var(--shadow-sm);
-  transform: translateY(-3px);
-}
-
-.project-card h3 {
-  margin: 1rem 0 0.65rem;
-  font-size: 1.5rem;
-}
-
-.project-description {
-  margin: 0;
-  color: var(--muted-foreground);
-  line-height: 1.65;
-}
-
-.tag-list {
-  margin-top: 1.35rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-}
-
-.tag {
-  border: 1px solid var(--border);
-  background: var(--secondary);
-  color: var(--secondary-foreground);
-  border-radius: 0.6rem;
-  padding: 0.36rem 0.68rem;
-  font-size: 0.8rem;
-}
-
-.project-actions {
-  margin-top: 1.5rem;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.65rem;
-}
-
-.project-actions .btn {
-  padding: 0.6rem 0.9rem;
-  font-size: 0.9rem;
-}
-
 .feature-highlight {
   padding: 2rem;
 }
@@ -952,6 +908,75 @@ textarea {
   font-size: 0.92rem;
 }
 
+.testimonials-grid {
+  display: grid;
+  gap: 1rem;
+  max-width: 68rem;
+  margin: 0 auto;
+}
+
+.testimonial-card {
+  padding: 1.6rem;
+  transition: border-color 200ms ease, transform 200ms ease;
+}
+
+.testimonial-card:hover {
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  transform: translateY(-2px);
+}
+
+.testimonial-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.9rem;
+}
+
+.testimonial-avatar {
+  width: 4.2rem;
+  height: 4.2rem;
+  border-radius: 999px;
+  flex-shrink: 0;
+  display: block;
+  object-fit: cover;
+  border: 1px solid color-mix(in srgb, var(--primary) 24%, var(--border));
+}
+
+.testimonial-profile-link {
+  color: inherit;
+  text-decoration: underline transparent;
+  text-underline-offset: 3px;
+  transition: color 200ms ease, text-decoration-color 200ms ease;
+}
+
+.testimonial-profile-link:hover {
+  color: var(--primary);
+  text-decoration-color: var(--primary);
+}
+
+.testimonial-avatar-link {
+  border-radius: 999px;
+  line-height: 0;
+}
+
+.testimonial-head h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.testimonial-role {
+  margin: 0.25rem 0 0;
+  color: var(--foreground);
+  font-size: 1.08rem;
+  font-weight: 500;
+}
+
+.testimonial-text {
+  margin: 1.2rem 0 0;
+  color: var(--foreground);
+  font-size: 1.07rem;
+  line-height: 1.6;
+}
+
 .contact-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1213,10 +1238,6 @@ textarea {
     display: none;
   }
 
-  .projects-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .resume-grid {
     grid-template-columns: 2fr 1fr;
   }
@@ -1270,7 +1291,6 @@ textarea {
 
 @media (min-width: 1120px) {
   .skills-grid,
-  .projects-grid,
   .folder-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }

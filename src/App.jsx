@@ -3,11 +3,9 @@ import {
   ArrowRight,
   ArrowUp,
   BadgeCheck,
-  Blocks,
   Briefcase,
   Code2,
   Download,
-  FlaskConical,
   Gauge,
   Github,
   GraduationCap,
@@ -16,23 +14,22 @@ import {
   Menu,
   Moon,
   Palette,
-  Rocket,
   Send,
   ShieldCheck,
-  ShoppingCart,
   Sparkles,
   Sun,
   TestTube2,
   Wrench,
   X,
 } from 'lucide-react'
+import anatoliiPhoto from './assets/anatolii.jpeg'
 import './App.css'
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home' },
   { id: 'skills', label: 'Skills' },
-  { id: 'projects', label: 'Projects' },
   { id: 'resume', label: 'Resume' },
+  { id: 'testimonials', label: 'Testimonials' },
   { id: 'contact', label: 'Contact' },
 ]
 
@@ -123,62 +120,11 @@ const SKILL_GROUPS = [
   },
 ]
 
-const PROJECTS = [
-  {
-    title: 'Playwright Automation Framework v2',
-    description:
-      'Enterprise-grade test automation framework with hybrid API + UI testing capabilities, authentication handling, network mocking, and comprehensive CI/CD integration.',
-    icon: Rocket,
-    technologies: ['Playwright', 'TypeScript', 'GitHub Actions', 'Docker', 'Allure Reports'],
-    githubUrl: '#',
-  },
-  {
-    title: 'QA Automation Portfolio',
-    description:
-      'Production-ready automation test suite demonstrating best practices in test architecture, page object models, data-driven testing, and continuous integration.',
-    icon: TestTube2,
-    technologies: ['Playwright', 'TypeScript', 'Jest', 'CI/CD', 'API Testing'],
-    githubUrl: '#',
-  },
-  {
-    title: 'Modern Portfolio Website',
-    description:
-      'Fully responsive, accessible portfolio website built with React, TypeScript, and Tailwind CSS. Features dark mode, smooth animations, and modern UI/UX design patterns.',
-    icon: Code2,
-    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Motion', 'Figma'],
-    githubUrl: '#',
-  },
-  {
-    title: 'E-Commerce Testing Suite',
-    description:
-      'Comprehensive end-to-end testing solution for e-commerce platforms covering user flows, payment integration, inventory management, and performance testing.',
-    icon: ShoppingCart,
-    technologies: ['Playwright', 'API Testing', 'Performance', 'Visual Testing'],
-    githubUrl: '#',
-  },
-  {
-    title: 'Design System Documentation',
-    description:
-      'Interactive component library and design system built with Storybook, featuring accessibility-first components, design tokens, and comprehensive usage guidelines.',
-    icon: Blocks,
-    technologies: ['React', 'Storybook', 'Tailwind', 'Accessibility', 'Figma'],
-    githubUrl: '#',
-  },
-  {
-    title: 'Automation Experiments',
-    description:
-      'Research repository exploring advanced testing patterns, visual regression testing, accessibility automation, and performance testing strategies.',
-    icon: FlaskConical,
-    technologies: ['Playwright', 'Axe-core', 'Lighthouse', 'Percy', 'WebVitals'],
-    githubUrl: '#',
-  },
-]
-
 const EXPERIENCE = [
   {
     title: 'QA Automation Engineer',
     company: 'Playson',
-    companyUrl: 'https://playson.com/',
+    companyLinks: [{ label: 'Playson', url: 'https://playson.com/' }],
     period: 'Sep 2018 - Present',
     description: [
       'Led QA automation strategy for a multi-product platform, aligning risk-based software testing with release goals.',
@@ -194,14 +140,17 @@ const EXPERIENCE = [
   {
     title: 'QA Engineer',
     company: 'Ers Game Studios LLP, Enixan',
+    companyLinks: [
+      { label: 'Ers Game Studios LLP', url: 'http://www.ersgamestudios.com/home' },
+      { label: 'Enixan', url: 'https://enixan.com/' },
+    ],
     period: 'May 2017 - Sep 2018',
     description: [
-      'Ukraine',
-      'Testing of casual games in the genre quest;',
-      'Working with bug tracking system JIRA;',
-      'Knowledge of desktop operating systems and mobile platforms (iOS, Android);',
-      "PC Games: Spirits of Mistery; Redemption Cemetery; Edgar Allan Poe's; Puppet Show; Haunted Legends etc.",
-      'F2P: Iron Rage; Deepsea Story.',
+      'Executed manual and exploratory testing for casual quest games across full feature cycles.',
+      'Reported, tracked, and validated defects in JIRA, collaborating closely with developers and designers.',
+      'Tested gameplay and compatibility on desktop and mobile platforms, including iOS and Android.',
+      'Created and maintained test cases, checklists, and release test plans to improve regression coverage.',
+      'Performed smoke and sanity testing for new builds to ensure stable releases under tight deadlines.',
     ],
   },
 ]
@@ -209,6 +158,7 @@ const EXPERIENCE = [
 const CORE_SKILLS = [
   'Python',
   'Javascript',
+  'Node.js',
   'Playwright',
   'Selenium',
   'Test Architecture',
@@ -244,6 +194,17 @@ const CERTIFICATIONS = [
   {
     title: 'Software Testing',
     url: 'https://skillsup.ua/education/courses/software-testing/',
+  },
+]
+
+const TESTIMONIALS = [
+  {
+    name: 'Anatolii Mikhailyuk',
+    role: 'Backend Developer (NestJS / TypeScript / AWS)',
+    linkedin: 'https://www.linkedin.com/in/mikhailuk-anatoly/',
+    photo: anatoliiPhoto,
+    review:
+      'Katya is a talented QA Engineer and great to work with. She has value tech skills which can help every young team. Katya is very attentiveness and always looking for new solutions for doing testing process more easy and comfortable for the team. Katya a fun person to work with and is always helpful. She is a passionate QA team member with big experience in game industry using manual testing, I can strongly recommend her.',
   },
 ]
 
@@ -284,6 +245,7 @@ function App() {
   const [isDark, setIsDark] = useState(getInitialTheme)
   const [menuOpen, setMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [activeSectionId, setActiveSectionId] = useState(NAV_ITEMS[0]?.id ?? '')
   const [showTopButton, setShowTopButton] = useState(false)
   const [roleIndex, setRoleIndex] = useState(0)
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
@@ -330,13 +292,39 @@ function App() {
   }, [isDark])
 
   useEffect(() => {
-    const handleScroll = () => {
+    const sectionElements = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(Boolean)
+
+    const updateScrollState = () => {
       setIsScrolled(window.scrollY > 20)
       setShowTopButton(window.scrollY > 500)
+
+      const scrollPosition = window.scrollY + 140
+      let nextActiveSection = NAV_ITEMS[0]?.id ?? ''
+
+      sectionElements.forEach((section) => {
+        if (scrollPosition >= section.offsetTop) {
+          nextActiveSection = section.id
+        }
+      })
+
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        nextActiveSection = NAV_ITEMS[NAV_ITEMS.length - 1]?.id ?? nextActiveSection
+      }
+
+      setActiveSectionId((previous) =>
+        previous === nextActiveSection ? previous : nextActiveSection,
+      )
     }
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    updateScrollState()
+
+    window.addEventListener('scroll', updateScrollState, { passive: true })
+    window.addEventListener('resize', updateScrollState)
+
+    return () => {
+      window.removeEventListener('scroll', updateScrollState)
+      window.removeEventListener('resize', updateScrollState)
+    }
   }, [])
 
   useEffect(() => {
@@ -414,6 +402,7 @@ function App() {
       return
     }
 
+    setActiveSectionId(sectionId)
     const top = section.getBoundingClientRect().top + window.pageYOffset - 80
     window.scrollTo({ top, behavior: 'smooth' })
     setMenuOpen(false)
@@ -438,8 +427,9 @@ function App() {
             {NAV_ITEMS.map((item) => (
               <button
                 key={item.id}
-                className="nav-link"
+                className={`nav-link ${activeSectionId === item.id ? 'nav-link--active' : ''}`}
                 type="button"
+                aria-current={activeSectionId === item.id ? 'page' : undefined}
                 onClick={() => scrollToSection(item.id)}
               >
                 {item.label}
@@ -476,8 +466,9 @@ function App() {
           {NAV_ITEMS.map((item, index) => (
             <button
               key={item.id}
-              className="mobile-menu-link"
+              className={`mobile-menu-link ${activeSectionId === item.id ? 'mobile-menu-link--active' : ''}`}
               type="button"
+              aria-current={activeSectionId === item.id ? 'page' : undefined}
               style={{ '--menu-item-index': index }}
               tabIndex={menuOpen ? 0 : -1}
               onClick={() => scrollToSection(item.id)}
@@ -557,7 +548,7 @@ function App() {
                   <button
                     type="button"
                     className="btn btn-primary"
-                    onClick={() => scrollToSection('projects')}
+                    onClick={() => scrollToSection('resume')}
                   >
                     View Work
                     <ArrowRight size={20} />
@@ -640,49 +631,6 @@ function App() {
           </div>
         </section>
 
-        <section id="projects" className="section section-soft">
-          <div className="container">
-            <header className="section-header">
-              <h2 className="section-title">Featured Projects</h2>
-              <p className="section-subtitle">
-                Automation frameworks, testing solutions, and frontend development projects
-              </p>
-            </header>
-            <div className="projects-grid">
-              {PROJECTS.map((project) => {
-                const ProjectIcon = project.icon
-                return (
-                  <article key={project.title} className="card project-card">
-                    <div className="card-icon">
-                      <ProjectIcon size={28} />
-                    </div>
-                    <h3>{project.title}</h3>
-                    <p className="project-description">{project.description}</p>
-                    <div className="tag-list">
-                      {project.technologies.map((technology) => (
-                        <span key={technology} className="tag">
-                          {technology}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="project-actions">
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-secondary"
-                      >
-                        <Github size={16} />
-                        GitHub
-                      </a>
-                    </div>
-                  </article>
-                )
-              })}
-            </div>
-          </div>
-        </section>
-
         <section id="resume" className="section section-soft">
           <div className="container">
             <header className="section-header">
@@ -709,15 +657,20 @@ function App() {
                         <div>
                           <h4>{entry.title}</h4>
                           <p>
-                            {entry.companyUrl ? (
-                              <a
-                                href={entry.companyUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="timeline-company-link"
-                              >
-                                {entry.company}
-                              </a>
+                            {entry.companyLinks?.length ? (
+                              entry.companyLinks.map((companyLink, index) => (
+                                <span key={companyLink.label}>
+                                  {index > 0 ? ', ' : ''}
+                                  <a
+                                    href={companyLink.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="timeline-company-link"
+                                  >
+                                    {companyLink.label}
+                                  </a>
+                                </span>
+                              ))
                             ) : (
                               entry.company
                             )}
@@ -801,6 +754,54 @@ function App() {
                   </div>
                 </article>
               </aside>
+            </div>
+          </div>
+        </section>
+
+        <section id="testimonials" className="section">
+          <div className="container">
+            <header className="section-header">
+              <h2 className="section-title">Testimonials</h2>
+              <p className="section-subtitle">
+                Feedback from professionals I&apos;ve collaborated with.
+              </p>
+            </header>
+
+            <div className="testimonials-grid">
+              {TESTIMONIALS.map((testimonial) => (
+                <article key={testimonial.name} className="card testimonial-card">
+                  <div className="testimonial-head">
+                    <a
+                      href={testimonial.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="testimonial-profile-link testimonial-avatar-link"
+                      aria-label={`Open ${testimonial.name} LinkedIn profile`}
+                    >
+                      <img
+                        src={testimonial.photo}
+                        alt={`${testimonial.name} profile photo`}
+                        className="testimonial-avatar"
+                        loading="lazy"
+                      />
+                    </a>
+                    <div>
+                      <h3>
+                        <a
+                          href={testimonial.linkedin}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="testimonial-profile-link"
+                        >
+                          {testimonial.name}
+                        </a>
+                      </h3>
+                      <p className="testimonial-role">{testimonial.role}</p>
+                    </div>
+                  </div>
+                  <p className="testimonial-text">{testimonial.review}</p>
+                </article>
+              ))}
             </div>
           </div>
         </section>
