@@ -3,6 +3,7 @@ import {
   ArrowRight,
   ArrowUp,
   BadgeCheck,
+  Bot,
   Briefcase,
   Code2,
   Download,
@@ -13,7 +14,6 @@ import {
   Mail,
   Menu,
   Moon,
-  Palette,
   Send,
   ShieldCheck,
   Sparkles,
@@ -53,36 +53,36 @@ const HERO_TECH = [
 
 const SKILL_GROUPS = [
   {
-    title: 'Automation & Testing',
+    title: 'Testing',
     icon: TestTube2,
     skills: [
-      'Playwright (Expert)',
       'API Testing',
-      'UI Automation',
       'Visual Regression Testing',
       'Component Testing',
+      'Cross-Browser Testing',
+      'Test Case Design',
     ],
   },
   {
-    title: 'Frontend Development',
+    title: 'Software Development',
     icon: Code2,
     skills: [
-      'React & TypeScript',
-      'HTML5 & CSS3',
-      'Tailwind CSS',
-      'JavaScript (ES6+)',
-      'Next.js & Vite',
+      'Python',
+      'Javascript',
+      'Node.js',
+      'HTML',
+      'CSS',
     ],
   },
   {
-    title: 'UI/UX & Design',
-    icon: Palette,
+    title: 'Test Automation',
+    icon: Bot,
     skills: [
-      'Figma & Design Systems',
-      'Responsive Design',
-      'Accessibility (WCAG)',
-      'User Interface Design',
-      'Prototyping',
+      'Playwright',
+      'Selenium',
+      'End-to-End Automation',
+      'Regression Suite Automation',
+      'CI/CD Pipeline Integration',
     ],
   },
   {
@@ -100,8 +100,8 @@ const SKILL_GROUPS = [
     title: 'Tools & Platforms',
     icon: Wrench,
     skills: [
-      'Git & GitHub',
-      'GitHub Actions',
+      'Git & GitLab',
+      'Kubernetes',
       'VS Code',
       'Docker',
       'Jenkins/CircleCI',
@@ -197,6 +197,8 @@ const CERTIFICATIONS = [
   },
 ]
 
+const RESUME_SIDE_CARD_COUNT = 3
+
 const TESTIMONIALS = [
   {
     name: 'Anatolii Mikhailyuk',
@@ -257,6 +259,14 @@ function App() {
   const skillCardRefs = useRef([])
   const [visibleSkillCards, setVisibleSkillCards] = useState(() =>
     SKILL_GROUPS.map(() => !supportsIntersectionObserver),
+  )
+  const experienceCardRefs = useRef([])
+  const [visibleExperienceCards, setVisibleExperienceCards] = useState(() =>
+    EXPERIENCE.map(() => !supportsIntersectionObserver),
+  )
+  const resumeSideCardRefs = useRef([])
+  const [visibleResumeSideCards, setVisibleResumeSideCards] = useState(() =>
+    Array.from({ length: RESUME_SIDE_CARD_COUNT }, () => !supportsIntersectionObserver),
   )
 
   const heroDots = useMemo(
@@ -388,6 +398,110 @@ function App() {
     )
 
     skillCardRefs.current.forEach((element) => {
+      if (element) {
+        observer.observe(element)
+      }
+    })
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setVisibleResumeSideCards((previous) => {
+          let next = previous
+          let changed = false
+
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              return
+            }
+
+            const index = Number(entry.target.getAttribute('data-resume-side-index'))
+            if (Number.isNaN(index) || previous[index]) {
+              return
+            }
+
+            if (!changed) {
+              next = [...previous]
+              changed = true
+            }
+
+            next[index] = true
+            observer.unobserve(entry.target)
+          })
+
+          return changed ? next : previous
+        })
+      },
+      {
+        threshold: 0.25,
+        rootMargin: '0px 0px -10% 0px',
+      },
+    )
+
+    resumeSideCardRefs.current.forEach((element) => {
+      if (element) {
+        observer.observe(element)
+      }
+    })
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setVisibleExperienceCards((previous) => {
+          let next = previous
+          let changed = false
+
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              return
+            }
+
+            const index = Number(entry.target.getAttribute('data-experience-index'))
+            if (Number.isNaN(index) || previous[index]) {
+              return
+            }
+
+            if (!changed) {
+              next = [...previous]
+              changed = true
+            }
+
+            next[index] = true
+            observer.unobserve(entry.target)
+          })
+
+          return changed ? next : previous
+        })
+      },
+      {
+        threshold: 0.3,
+        rootMargin: '0px 0px -12% 0px',
+      },
+    )
+
+    experienceCardRefs.current.forEach((element) => {
       if (element) {
         observer.observe(element)
       }
@@ -563,8 +677,8 @@ function App() {
                   </button>
                 </div>
                 <div className="hero-tags">
-                  {HERO_TECH.map((tech) => (
-                    <span key={tech} className="tech-pill">
+                  {HERO_TECH.map((tech, index) => (
+                    <span key={tech} className="tech-pill" style={{ '--tech-index': index }}>
                       {tech}
                     </span>
                   ))}
@@ -595,8 +709,7 @@ function App() {
             <header className="section-header">
               <h2 className="section-title">Skills & Expertise</h2>
               <p className="section-subtitle">
-                Full-stack quality engineering with frontend development and UI/UX design
-                capabilities
+                Full-fledged quality engineering with extensive automation capabilities
               </p>
             </header>
             <div className="skills-grid">
@@ -610,15 +723,18 @@ function App() {
                     }}
                     data-skill-index={index}
                     className={`card skill-card ${visibleSkillCards[index] ? 'skill-card--visible' : ''}`}
-                    style={{ transitionDelay: `${index * 80}ms` }}
+                    style={{
+                      transitionDelay: `${index * 80}ms`,
+                      '--skill-card-delay': `${index * 80}ms`,
+                    }}
                   >
                     <div className="card-icon">
                       <GroupIcon size={24} />
                     </div>
                     <h3>{group.title}</h3>
                     <ul className="skill-list">
-                      {group.skills.map((skill) => (
-                        <li key={skill}>
+                      {group.skills.map((skill, skillIndex) => (
+                        <li key={skill} style={{ '--skill-item-index': skillIndex }}>
                           <span className="bullet-dot" />
                           {skill}
                         </li>
@@ -651,8 +767,18 @@ function App() {
                   <h3>Work Experience</h3>
                 </div>
                 <div className="timeline">
-                  {EXPERIENCE.map((entry) => (
-                    <article key={`${entry.title}${entry.company}`} className="timeline-item card">
+                  {EXPERIENCE.map((entry, index) => (
+                    <article
+                      key={`${entry.title}${entry.company}`}
+                      ref={(element) => {
+                        experienceCardRefs.current[index] = element
+                      }}
+                      data-experience-index={index}
+                      className={`timeline-item card ${
+                        visibleExperienceCards[index] ? 'timeline-item--visible' : ''
+                      }`}
+                      style={{ transitionDelay: `${index * 220}ms` }}
+                    >
                       <div className="timeline-head">
                         <div>
                           <h4>{entry.title}</h4>
@@ -692,7 +818,14 @@ function App() {
               </div>
 
               <aside className="resume-side">
-                <article className="card side-card">
+                <article
+                  ref={(element) => {
+                    resumeSideCardRefs.current[0] = element
+                  }}
+                  data-resume-side-index={0}
+                  className={`card side-card ${visibleResumeSideCards[0] ? 'side-card--visible' : ''}`}
+                  style={{ transitionDelay: '0ms' }}
+                >
                   <div className="inline-heading">
                     <Sparkles size={20} />
                     <h3>Core Skills</h3>
@@ -706,7 +839,14 @@ function App() {
                   </div>
                 </article>
 
-                <article className="card side-card">
+                <article
+                  ref={(element) => {
+                    resumeSideCardRefs.current[1] = element
+                  }}
+                  data-resume-side-index={1}
+                  className={`card side-card ${visibleResumeSideCards[1] ? 'side-card--visible' : ''}`}
+                  style={{ transitionDelay: '140ms' }}
+                >
                   <div className="inline-heading">
                     <BadgeCheck size={20} />
                     <h3>Certifications</h3>
@@ -728,7 +868,14 @@ function App() {
                   </ul>
                 </article>
 
-                <article className="card side-card">
+                <article
+                  ref={(element) => {
+                    resumeSideCardRefs.current[2] = element
+                  }}
+                  data-resume-side-index={2}
+                  className={`card side-card ${visibleResumeSideCards[2] ? 'side-card--visible' : ''}`}
+                  style={{ transitionDelay: '280ms' }}
+                >
                   <div className="inline-heading">
                     <GraduationCap size={20} />
                     <h3>Education</h3>
