@@ -1323,7 +1323,7 @@ textarea {
   background: var(--card);
   padding: 1.5rem 0;
   filter: blur(10px);
-  transition: filter 2625ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: filter 1750ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .site-footer--visible {
