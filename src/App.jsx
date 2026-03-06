@@ -925,8 +925,8 @@ function App() {
                 </div>
                 <div className="hero-tags">
                   {HERO_TECH.map((tech, index) => (
-                    <span key={tech} className="tech-pill" style={{ '--tech-index': index }}>
-                      {tech}
+                    <span key={tech} className="tech-pill-wrap" style={{ '--tech-index': index }}>
+                      <span className="tech-pill">{tech}</span>
                     </span>
                   ))}
                 </div>

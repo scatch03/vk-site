@@ -473,11 +473,9 @@ textarea {
   aspect-ratio: 1 / 1;
   border-radius: 999px;
   padding: 0.45rem;
-  background: linear-gradient(
-    145deg,
-    color-mix(in srgb, var(--primary) 65%, transparent),
-    color-mix(in srgb, var(--accent) 65%, transparent)
-  );
+  background: linear-gradient(145deg,
+      color-mix(in srgb, var(--primary) 65%, transparent),
+      color-mix(in srgb, var(--accent) 65%, transparent));
   box-shadow: var(--shadow-lg);
 }
 
@@ -607,24 +605,31 @@ textarea {
   animation-delay: 1216ms;
 }
 
-.tech-pill {
-  border: 1px solid var(--border);
-  background: var(--card);
-  color: var(--muted-foreground);
-  padding: 0.45rem 0.85rem;
-  border-radius: 0.6rem;
-  font-size: 0.86rem;
-  transition: color 200ms ease, border-color 200ms ease, transform 200ms ease;
+.tech-pill-wrap {
+  display: inline-flex;
   opacity: 0;
   transform: translateX(-18px) scale(0.92);
   animation: tech-pill-pop 992ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: calc(1568ms + (var(--tech-index, 0) * 144ms));
 }
 
+.tech-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--muted-foreground);
+  padding: 0.45rem 0.85rem;
+  border-radius: 0.6rem;
+  font-size: 0.86rem;
+  transition: color 220ms ease, border-color 220ms ease,
+    transform 360ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .tech-pill:hover {
   color: var(--primary);
   border-color: color-mix(in srgb, var(--primary) 55%, var(--border));
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.05);
 }
 
 .card {
@@ -710,9 +715,7 @@ textarea {
 .skill-card--visible .skill-list li {
   opacity: 1;
   transform: translateX(0);
-  transition-delay: calc(
-    var(--skill-card-delay, 0ms) + 120ms + (var(--skill-item-index, 0) * 65ms)
-  );
+  transition-delay: calc(var(--skill-card-delay, 0ms) + 120ms + (var(--skill-item-index, 0) * 65ms));
 }
 
 .bullet-dot {
@@ -1397,11 +1400,13 @@ textarea {
 }
 
 @keyframes caret-blink {
+
   0%,
   70%,
   100% {
     opacity: 1;
   }
+
   20%,
   50% {
     opacity: 0;
@@ -1414,6 +1419,7 @@ textarea {
     transform: translateY(24px);
     filter: blur(6px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -1426,6 +1432,7 @@ textarea {
     opacity: 0;
     transform: translateY(28px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -1438,6 +1445,7 @@ textarea {
     transform: translateY(10px);
     filter: blur(8px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -1449,17 +1457,20 @@ textarea {
   from {
     transform: translateY(-18px) rotate(0deg);
   }
+
   to {
     transform: translateY(22px) rotate(180deg);
   }
 }
 
 @keyframes dot-pulse {
+
   0%,
   100% {
     opacity: 0.3;
     transform: scale(1);
   }
+
   50% {
     opacity: 0.75;
     transform: scale(1.6);
@@ -1471,10 +1482,12 @@ textarea {
     opacity: 0;
     transform: translateX(-18px) scale(0.92);
   }
+
   65% {
     opacity: 1;
     transform: translateX(4px) scale(1.04);
   }
+
   100% {
     opacity: 1;
     transform: translateX(0) scale(1);
@@ -1486,10 +1499,12 @@ textarea {
     opacity: 0;
     transform: translateY(30px);
   }
+
   70% {
     opacity: 1;
     transform: translateY(-7px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -1500,12 +1515,14 @@ textarea {
   from {
     transform: translateY(0);
   }
+
   to {
     transform: translateY(100vh);
   }
 }
 
 @media (min-width: 760px) {
+
   .skills-grid,
   .feature-grid,
   .decision-grid,
@@ -1579,6 +1596,7 @@ textarea {
 }
 
 @media (min-width: 1120px) {
+
   .skills-grid,
   .folder-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
