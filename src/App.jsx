@@ -256,6 +256,12 @@ function App() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    subject: '',
+    message: '',
+  })
+  const [isSubmittingContact, setIsSubmittingContact] = useState(false)
+  const [contactFormStatus, setContactFormStatus] = useState({
+    type: 'idle',
     message: '',
   })
   const resumeHeaderRef = useRef(null)
@@ -771,15 +777,70 @@ function App() {
     setMenuOpen(false)
   }
 
-  const handleFormSubmit = (event) => {
+  const handleFormSubmit = async (event) => {
     event.preventDefault()
-    alert('Thank you for your message! This is a demo form.')
-    setFormData({ name: '', email: '', message: '' })
+
+    if (isSubmittingContact) {
+      return
+    }
+
+    setIsSubmittingContact(true)
+    setContactFormStatus({ type: 'idle', message: '' })
+
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      subject: formData.subject.trim(),
+      message: formData.message.trim(),
+    }
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify(payload),
+      })
+
+      const contentType = response.headers.get('content-type') ?? ''
+      let responseData = null
+
+      if (contentType.includes('application/json')) {
+        responseData = await response.json()
+      }
+
+      if (!response.ok) {
+        throw new Error(
+          responseData?.message || 'Failed to send the message. Please try again in a moment.',
+        )
+      }
+
+      setFormData({ name: '', email: '', subject: '', message: '' })
+      setContactFormStatus({
+        type: 'success',
+        message: 'Thanks. Your message has been sent successfully.',
+      })
+    } catch (error) {
+      setContactFormStatus({
+        type: 'error',
+        message:
+          error instanceof Error
+            ? error.message
+            : 'Failed to send the message. Please try again in a moment.',
+      })
+    } finally {
+      setIsSubmittingContact(false)
+    }
   }
 
   const handleFormFieldChange = (event) => {
     const { name, value } = event.target
     setFormData((previous) => ({ ...previous, [name]: value }))
+    if (contactFormStatus.type !== 'idle') {
+      setContactFormStatus({ type: 'idle', message: '' })
+    }
   }
 
   return (
@@ -1299,6 +1360,18 @@ function App() {
                     />
                   </label>
 
+                  <label htmlFor="subject">
+                    Subject
+                    <input
+                      id="subject"
+                      name="subject"
+                      type="text"
+                      value={formData.subject}
+                      onChange={handleFormFieldChange}
+                      placeholder="Opportunity, project, or consultation"
+                    />
+                  </label>
+
                   <label htmlFor="message">
                     Message
                     <textarea
@@ -1312,10 +1385,19 @@ function App() {
                     />
                   </label>
 
-                  <button type="submit" className="btn btn-primary btn-full">
+                  <button type="submit" className="btn btn-primary btn-full" disabled={isSubmittingContact}>
                     <Send size={18} />
-                    Send Message
+                    {isSubmittingContact ? 'Sending...' : 'Send Message'}
                   </button>
+
+                  {contactFormStatus.type !== 'idle' ? (
+                    <p
+                      className={`contact-form-status contact-form-status--${contactFormStatus.type}`}
+                      role={contactFormStatus.type === 'error' ? 'alert' : 'status'}
+                    >
+                      {contactFormStatus.message}
+                    </p>
+                  ) : null}
                 </form>
               </article>
 

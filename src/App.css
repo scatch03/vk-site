@@ -565,6 +565,13 @@ textarea {
   transform: translateY(-1px);
 }
 
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.72;
+  transform: none;
+  box-shadow: none;
+}
+
 .btn-primary {
   border-color: transparent;
   background: var(--primary);
@@ -1229,6 +1236,20 @@ textarea {
   outline: 0;
   border-color: var(--ring);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--ring) 24%, transparent);
+}
+
+.contact-form-status {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+.contact-form-status--success {
+  color: color-mix(in srgb, var(--primary) 68%, #0f6f3e 32%);
+}
+
+.contact-form-status--error {
+  color: color-mix(in srgb, #c62828 78%, var(--foreground) 22%);
 }
 
 .contact-side {
