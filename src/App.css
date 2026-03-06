@@ -124,6 +124,84 @@ textarea {
   margin-top: 2rem;
 }
 
+.resume-section-title,
+.resume-section-subtitle,
+.resume-section-cta {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1550ms ease, transform 1750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.resume-section-cta {
+  transition: none;
+}
+
+.resume-section-subtitle {
+  transition-delay: 300ms;
+}
+
+.resume-section-header--visible .resume-section-title,
+.resume-section-header--visible .resume-section-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.resume-section-header--visible .resume-section-cta {
+  animation: resume-cta-rise-in 1750ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: 1050ms;
+}
+
+.testimonials-section-title,
+.testimonials-section-subtitle {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1550ms ease, transform 1750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.testimonials-section-subtitle {
+  transition-delay: 300ms;
+}
+
+.testimonials-section-header--visible .testimonials-section-title,
+.testimonials-section-header--visible .testimonials-section-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.contact-section-title,
+.contact-section-subtitle {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1550ms ease, transform 1750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-section-subtitle {
+  transition-delay: 300ms;
+}
+
+.contact-section-header--visible .contact-section-title,
+.contact-section-header--visible .contact-section-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.skills-section-title,
+.skills-section-subtitle {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1550ms ease, transform 1750ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skills-section-subtitle {
+  transition-delay: 300ms;
+}
+
+.skills-section-header--visible .skills-section-title,
+.skills-section-header--visible .skills-section-subtitle {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 .site-nav {
   position: fixed;
   inset: 0 0 auto;
@@ -901,6 +979,19 @@ textarea {
   font-size: 0.82rem;
 }
 
+.core-skill-badge {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 560ms ease, transform 660ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 0ms;
+}
+
+.side-card--visible .core-skill-badge {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: calc(90ms + (var(--core-skill-index, 0) * 60ms));
+}
+
 .cert-list {
   margin: 0;
   padding: 0;
@@ -914,6 +1005,22 @@ textarea {
   gap: 0.45rem;
   color: var(--muted-foreground);
   font-size: 0.92rem;
+}
+
+.cert-item {
+  opacity: 0;
+  transform: translateX(30px);
+  filter: blur(6px);
+  transition: opacity 930ms ease, transform 1140ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1140ms ease;
+  transition-delay: 0ms;
+}
+
+.side-card--visible .cert-item {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+  transition-delay: calc(150ms + (var(--cert-index, 0) * 128ms));
 }
 
 .cert-link {
@@ -937,6 +1044,19 @@ textarea {
   display: flex;
   align-items: flex-start;
   gap: 0.85rem;
+  opacity: 0;
+  transform: translateX(30px);
+  filter: blur(6px);
+  transition: opacity 930ms ease, transform 1140ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 1140ms ease;
+  transition-delay: 0ms;
+}
+
+.side-card--visible .education-row {
+  opacity: 1;
+  transform: translateX(0);
+  filter: blur(0);
+  transition-delay: 150ms;
 }
 
 .education-logo {
@@ -961,6 +1081,15 @@ textarea {
   gap: 1rem;
   max-width: 68rem;
   margin: 0 auto;
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 1550ms ease, transform 1750ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: 600ms;
+}
+
+.testimonials-grid--visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .testimonial-card {
@@ -1036,6 +1165,14 @@ textarea {
   border-radius: 1rem;
   background: var(--card);
   padding: 1.5rem;
+  opacity: 0;
+  transform: translateX(-38px);
+  transition: opacity 1150ms ease, transform 1300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-form-wrap--visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .contact-form {
@@ -1075,6 +1212,14 @@ textarea {
 
 .contact-card {
   padding: 1.5rem;
+  opacity: 0;
+  transform: translateX(38px);
+  transition: opacity 1150ms ease, transform 1300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.contact-card--visible {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .contact-card h3 {
@@ -1097,12 +1242,18 @@ textarea {
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  transition: border-color 200ms ease, transform 200ms ease;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: border-color 200ms ease;
+}
+
+.social-card--visible {
+  animation: social-card-rise-bounce 980ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: calc(220ms + (var(--social-index, 0) * 170ms));
 }
 
 .social-card:hover {
   border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
-  transform: translateY(-2px);
 }
 
 .social-name {
@@ -1121,6 +1272,13 @@ textarea {
   border-radius: 1rem;
   padding: 1rem 1.2rem;
   background: color-mix(in srgb, var(--accent) 12%, transparent);
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.availability-card--visible {
+  animation: social-card-rise-bounce 980ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 820ms;
 }
 
 .availability-header {
@@ -1152,6 +1310,12 @@ textarea {
   border-top: 1px solid var(--border);
   background: var(--card);
   padding: 1.5rem 0;
+  filter: blur(10px);
+  transition: filter 2625ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.site-footer--visible {
+  filter: blur(0);
 }
 
 .footer-inner {
@@ -1234,6 +1398,17 @@ textarea {
   }
 }
 
+@keyframes resume-cta-rise-in {
+  0% {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes role-fade {
   from {
     opacity: 0;
@@ -1280,6 +1455,21 @@ textarea {
   100% {
     opacity: 1;
     transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes social-card-rise-bounce {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-7px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 

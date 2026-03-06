@@ -256,6 +256,31 @@ function App() {
     email: '',
     message: '',
   })
+  const resumeHeaderRef = useRef(null)
+  const [isResumeHeaderVisible, setIsResumeHeaderVisible] = useState(
+    () => !supportsIntersectionObserver,
+  )
+  const testimonialsHeaderRef = useRef(null)
+  const [isTestimonialsHeaderVisible, setIsTestimonialsHeaderVisible] = useState(
+    () => !supportsIntersectionObserver,
+  )
+  const contactHeaderRef = useRef(null)
+  const [isContactHeaderVisible, setIsContactHeaderVisible] = useState(
+    () => !supportsIntersectionObserver,
+  )
+  const contactContentRef = useRef(null)
+  const [isContactContentVisible, setIsContactContentVisible] = useState(
+    () => !supportsIntersectionObserver,
+  )
+  const socialLinksRef = useRef(null)
+  const [isSocialLinksVisible, setIsSocialLinksVisible] = useState(
+    () => !supportsIntersectionObserver,
+  )
+  const skillsHeaderRef = useRef(null)
+  const [isSkillsHeaderVisible, setIsSkillsHeaderVisible] = useState(
+    () => !supportsIntersectionObserver,
+  )
+  const [isFooterVisible, setIsFooterVisible] = useState(false)
   const skillCardRefs = useRef([])
   const [visibleSkillCards, setVisibleSkillCards] = useState(() =>
     SKILL_GROUPS.map(() => !supportsIntersectionObserver),
@@ -309,6 +334,8 @@ function App() {
       setShowTopButton(window.scrollY > 500)
 
       const scrollPosition = window.scrollY + 140
+      const reachedBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
       let nextActiveSection = NAV_ITEMS[0]?.id ?? ''
 
       sectionElements.forEach((section) => {
@@ -317,8 +344,12 @@ function App() {
         }
       })
 
-      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+      if (reachedBottom) {
         nextActiveSection = NAV_ITEMS[NAV_ITEMS.length - 1]?.id ?? nextActiveSection
+      }
+
+      if (reachedBottom) {
+        setIsFooterVisible(true)
       }
 
       setActiveSectionId((previous) =>
@@ -402,6 +433,222 @@ function App() {
         observer.observe(element)
       }
     })
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      setIsResumeHeaderVisible(true)
+      return
+    }
+
+    if (!resumeHeaderRef.current) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return
+          }
+
+          setIsResumeHeaderVisible(true)
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -15% 0px',
+      },
+    )
+
+    observer.observe(resumeHeaderRef.current)
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      setIsTestimonialsHeaderVisible(true)
+      return
+    }
+
+    if (!testimonialsHeaderRef.current) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return
+          }
+
+          setIsTestimonialsHeaderVisible(true)
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -15% 0px',
+      },
+    )
+
+    observer.observe(testimonialsHeaderRef.current)
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      setIsContactHeaderVisible(true)
+      return
+    }
+
+    if (!contactHeaderRef.current) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return
+          }
+
+          setIsContactHeaderVisible(true)
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -15% 0px',
+      },
+    )
+
+    observer.observe(contactHeaderRef.current)
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      setIsContactContentVisible(true)
+      return
+    }
+
+    if (!contactContentRef.current) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return
+          }
+
+          setIsContactContentVisible(true)
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '0px 0px -12% 0px',
+      },
+    )
+
+    observer.observe(contactContentRef.current)
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      setIsSocialLinksVisible(true)
+      return
+    }
+
+    if (!socialLinksRef.current) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return
+          }
+
+          setIsSocialLinksVisible(true)
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.35,
+        rootMargin: '0px 0px -28% 0px',
+      },
+    )
+
+    observer.observe(socialLinksRef.current)
+
+    return () => observer.disconnect()
+  }, [supportsIntersectionObserver])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    if (!supportsIntersectionObserver) {
+      setIsSkillsHeaderVisible(true)
+      return
+    }
+
+    if (!skillsHeaderRef.current) {
+      return
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) {
+            return
+          }
+
+          setIsSkillsHeaderVisible(true)
+          observer.unobserve(entry.target)
+        })
+      },
+      {
+        threshold: 0.2,
+        rootMargin: '0px 0px -15% 0px',
+      },
+    )
+
+    observer.observe(skillsHeaderRef.current)
 
     return () => observer.disconnect()
   }, [supportsIntersectionObserver])
@@ -706,9 +953,14 @@ function App() {
 
         <section id="skills" className="section">
           <div className="container">
-            <header className="section-header">
-              <h2 className="section-title">Skills & Expertise</h2>
-              <p className="section-subtitle">
+            <header
+              ref={skillsHeaderRef}
+              className={`section-header skills-section-header ${
+                isSkillsHeaderVisible ? 'skills-section-header--visible' : ''
+              }`}
+            >
+              <h2 className="section-title skills-section-title">Skills & Expertise</h2>
+              <p className="section-subtitle skills-section-subtitle">
                 Full-fledged quality engineering with extensive automation capabilities
               </p>
             </header>
@@ -749,12 +1001,17 @@ function App() {
 
         <section id="resume" className="section section-soft">
           <div className="container">
-            <header className="section-header">
-              <h2 className="section-title">Experience & Background</h2>
-              <p className="section-subtitle">
+            <header
+              ref={resumeHeaderRef}
+              className={`section-header resume-section-header ${
+                isResumeHeaderVisible ? 'resume-section-header--visible' : ''
+              }`}
+            >
+              <h2 className="section-title resume-section-title">Experience & Background</h2>
+              <p className="section-subtitle resume-section-subtitle">
                 Building quality into products through strategic automation and testing excellence
               </p>
-              <button type="button" className="btn btn-primary section-cta">
+              <button type="button" className="btn btn-primary section-cta resume-section-cta">
                 <Download size={20} />
                 Download Full Resume
               </button>
@@ -831,8 +1088,12 @@ function App() {
                     <h3>Core Skills</h3>
                   </div>
                   <div className="badge-list">
-                    {CORE_SKILLS.map((skill) => (
-                      <span key={skill} className="badge">
+                    {CORE_SKILLS.map((skill, index) => (
+                      <span
+                        key={skill}
+                        className="badge core-skill-badge"
+                        style={{ '--core-skill-index': index }}
+                      >
                         {skill}
                       </span>
                     ))}
@@ -852,8 +1113,12 @@ function App() {
                     <h3>Certifications</h3>
                   </div>
                   <ul className="cert-list">
-                    {CERTIFICATIONS.map((certificate) => (
-                      <li key={certificate.title}>
+                    {CERTIFICATIONS.map((certificate, index) => (
+                      <li
+                        key={certificate.title}
+                        className="cert-item"
+                        style={{ '--cert-index': index }}
+                      >
                         <span className="check-symbol">✓</span>
                         <a
                           href={certificate.url}
@@ -907,14 +1172,23 @@ function App() {
 
         <section id="testimonials" className="section">
           <div className="container">
-            <header className="section-header">
-              <h2 className="section-title">Testimonials</h2>
-              <p className="section-subtitle">
+            <header
+              ref={testimonialsHeaderRef}
+              className={`section-header testimonials-section-header ${
+                isTestimonialsHeaderVisible ? 'testimonials-section-header--visible' : ''
+              }`}
+            >
+              <h2 className="section-title testimonials-section-title">Testimonials</h2>
+              <p className="section-subtitle testimonials-section-subtitle">
                 Feedback from professionals I&apos;ve collaborated with.
               </p>
             </header>
 
-            <div className="testimonials-grid">
+            <div
+              className={`testimonials-grid ${
+                isTestimonialsHeaderVisible ? 'testimonials-grid--visible' : ''
+              }`}
+            >
               {TESTIMONIALS.map((testimonial) => (
                 <article key={testimonial.name} className="card testimonial-card">
                   <div className="testimonial-head">
@@ -955,15 +1229,27 @@ function App() {
 
         <section id="contact" className="section">
           <div className="container">
-            <header className="section-header">
-              <h2 className="section-title">Let&apos;s Talk Quality Engineering</h2>
-              <p className="section-subtitle">
+            <header
+              ref={contactHeaderRef}
+              className={`section-header contact-section-header ${
+                isContactHeaderVisible ? 'contact-section-header--visible' : ''
+              }`}
+            >
+              <h2 className="section-title contact-section-title">Let&apos;s Talk Quality Engineering</h2>
+              <p className="section-subtitle contact-section-subtitle">
                 Interested in discussing newest automation strategies, best test architecture approaches, or exciting potential opportunities?
               </p>
             </header>
 
-            <div className="contact-grid">
-              <article className="contact-form-wrap">
+            <div
+              ref={contactContentRef}
+              className={`contact-grid ${isContactContentVisible ? 'contact-grid--visible' : ''}`}
+            >
+              <article
+                className={`contact-form-wrap ${
+                  isContactContentVisible ? 'contact-form-wrap--visible' : ''
+                }`}
+              >
                 <form className="contact-form" onSubmit={handleFormSubmit}>
                   <label htmlFor="name">
                     Name
@@ -1012,7 +1298,9 @@ function App() {
               </article>
 
               <div className="contact-side">
-                <article className="card contact-card">
+                <article
+                  className={`card contact-card ${isContactContentVisible ? 'contact-card--visible' : ''}`}
+                >
                   <h3>Get in Touch</h3>
                   <p>
                     I&apos;m always open to discussing new opportunities, solving automation
@@ -1025,8 +1313,8 @@ function App() {
                   </p>
                 </article>
 
-                <div className="social-links">
-                  {SOCIAL_LINKS.map((link) => {
+                <div className="social-links" ref={socialLinksRef}>
+                  {SOCIAL_LINKS.map((link, index) => {
                     const SocialIcon = link.icon
                     return (
                       <a
@@ -1034,7 +1322,10 @@ function App() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="card social-card"
+                        className={`card social-card ${
+                          isSocialLinksVisible ? 'social-card--visible' : ''
+                        }`}
+                        style={{ '--social-index': index }}
                       >
                         <div className="card-icon">
                           <SocialIcon size={20} />
@@ -1048,7 +1339,11 @@ function App() {
                   })}
                 </div>
 
-                <article className="availability-card">
+                <article
+                  className={`availability-card ${
+                    isSocialLinksVisible ? 'availability-card--visible' : ''
+                  }`}
+                >
                   <div className="availability-header">
                     <span className="status-dot" />
                     <p>Open to opportunities</p>
@@ -1063,7 +1358,7 @@ function App() {
         </section>
       </main>
 
-      <footer className="site-footer">
+      <footer className={`site-footer ${isFooterVisible ? 'site-footer--visible' : ''}`}>
         <div className="container footer-inner">
           <p>© 2026 All rights reserved.</p>
           <div className="footer-links">
