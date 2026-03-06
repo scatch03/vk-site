@@ -659,6 +659,12 @@ textarea {
     box-shadow 220ms ease;
 }
 
+.skill-card .card-icon {
+  border: 1px solid transparent;
+  background-color: color-mix(in srgb, var(--primary) 12%, transparent);
+  transition: background-color 500ms ease, color 500ms ease, border-color 500ms ease;
+}
+
 .skill-card--visible {
   opacity: 1;
   transform: translateY(0);
@@ -668,6 +674,12 @@ textarea {
   border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
   transform: translateY(-3px);
   box-shadow: var(--shadow-sm);
+}
+
+.skill-card--visible:hover .card-icon {
+  background-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border));
+  color: var(--primary-foreground);
 }
 
 .skill-card h3 {
