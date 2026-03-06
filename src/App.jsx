@@ -795,7 +795,8 @@ function App() {
     }
 
     try {
-      const response = await fetch('/api/contact', {
+      const apiBase = `${window.location.protocol}//${window.location.hostname}:4000`
+      const response = await fetch(`${apiBase}/api/contact`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
