@@ -231,6 +231,8 @@ const SOCIAL_LINKS = [
   },
 ]
 
+const RESUME_PDF_PATH = '/kateryna-vorona-qa-automation-engineer-resume.pdf'
+
 const getInitialTheme = () => {
   if (typeof window === 'undefined') {
     return false
@@ -914,14 +916,14 @@ function App() {
                     View Work
                     <ArrowRight size={20} />
                   </button>
-                <button
-                  type="button"
-                  className="btn btn-secondary hero-download-btn"
-                  onClick={() => scrollToSection('resume')}
-                >
-                  <Download size={20} />
-                  Download Resume
-                  </button>
+                  <a
+                    className="btn btn-secondary hero-download-btn"
+                    href={RESUME_PDF_PATH}
+                    download
+                  >
+                    <Download size={20} />
+                    Download Resume
+                  </a>
                 </div>
                 <div className="hero-tags">
                   {HERO_TECH.map((tech, index) => (
@@ -1011,10 +1013,14 @@ function App() {
               <p className="section-subtitle resume-section-subtitle">
                 Building quality into products through strategic automation and testing excellence
               </p>
-              <button type="button" className="btn btn-primary section-cta resume-section-cta">
+              <a
+                className="btn btn-primary section-cta resume-section-cta"
+                href={RESUME_PDF_PATH}
+                download
+              >
                 <Download size={20} />
                 Download Full Resume
-              </button>
+              </a>
             </header>
 
             <div className="resume-grid">
