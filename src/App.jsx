@@ -1019,7 +1019,11 @@ function App() {
 
             <div className="resume-grid">
               <div>
-                <div className="inline-heading">
+                <div
+                  className={`inline-heading ${
+                    visibleExperienceCards[0] ? 'inline-heading--visible' : ''
+                  }`}
+                >
                   <Briefcase size={22} />
                   <h3>Work Experience</h3>
                 </div>
@@ -1083,7 +1087,11 @@ function App() {
                   className={`card side-card ${visibleResumeSideCards[0] ? 'side-card--visible' : ''}`}
                   style={{ transitionDelay: '0ms' }}
                 >
-                  <div className="inline-heading">
+                  <div
+                    className={`inline-heading ${
+                      visibleResumeSideCards[0] ? 'inline-heading--visible' : ''
+                    }`}
+                  >
                     <Sparkles size={20} />
                     <h3>Core Skills</h3>
                   </div>
@@ -1108,7 +1116,11 @@ function App() {
                   className={`card side-card ${visibleResumeSideCards[1] ? 'side-card--visible' : ''}`}
                   style={{ transitionDelay: '140ms' }}
                 >
-                  <div className="inline-heading">
+                  <div
+                    className={`inline-heading ${
+                      visibleResumeSideCards[1] ? 'inline-heading--visible' : ''
+                    }`}
+                  >
                     <BadgeCheck size={20} />
                     <h3>Certifications</h3>
                   </div>
@@ -1141,7 +1153,11 @@ function App() {
                   className={`card side-card ${visibleResumeSideCards[2] ? 'side-card--visible' : ''}`}
                   style={{ transitionDelay: '280ms' }}
                 >
-                  <div className="inline-heading">
+                  <div
+                    className={`inline-heading ${
+                      visibleResumeSideCards[2] ? 'inline-heading--visible' : ''
+                    }`}
+                  >
                     <GraduationCap size={20} />
                     <h3>Education</h3>
                   </div>
