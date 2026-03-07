@@ -232,6 +232,7 @@ const SOCIAL_LINKS = [
 ]
 
 const RESUME_PDF_PATH = '/kateryna-vorona-qa-automation-engineer-resume.pdf'
+const CONTACT_MAILTO = 'katyagrinchishina@gmail.com'
 
 const getInitialTheme = () => {
   if (typeof window === 'undefined') {
@@ -256,6 +257,7 @@ function App() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    mailto: CONTACT_MAILTO,
     subject: '',
     message: '',
   })
@@ -790,6 +792,7 @@ function App() {
     const payload = {
       name: formData.name.trim(),
       email: formData.email.trim(),
+      mailto: formData.mailto.trim(),
       subject: formData.subject.trim(),
       message: formData.message.trim(),
     }
@@ -818,7 +821,13 @@ function App() {
         )
       }
 
-      setFormData({ name: '', email: '', subject: '', message: '' })
+      setFormData({
+        name: '',
+        email: '',
+        mailto: CONTACT_MAILTO,
+        subject: '',
+        message: '',
+      })
       setContactFormStatus({
         type: 'success',
         message: 'Thanks. Your message has been sent successfully.',
@@ -1335,6 +1344,8 @@ function App() {
                 }`}
               >
                 <form className="contact-form" onSubmit={handleFormSubmit}>
+                  <input type="hidden" name="mailto" value={formData.mailto} />
+
                   <label htmlFor="name">
                     Name
                     <input
